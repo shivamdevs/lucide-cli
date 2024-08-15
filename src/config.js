@@ -1,4 +1,6 @@
-export const cli_version = "0.0.1";
+export const cli_version = "0.0.2";
+export const cli_name = "Lucide CLI";
+export const cli_aliases = "lucide-cli, lucli";
 
 export const def_dir = "src/components/lucide";
 export const def_config_file = "lucide.config.json";

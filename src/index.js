@@ -22,55 +22,49 @@ program
 	.action(init);
 
 program
-	.command("list")
+	.commands(["list", "l", "ls"])
 	.description("List all icons added to your project")
 	.action(list);
 
 program
-	.command("add <icons...>")
+	.commands([
+		"add <icons...>",
+		"a <icons...>",
+		"i <icons...>",
+		"install <icons...>",
+	])
 	.description("Add icons to your project")
 	.action(add);
 
 program
-	.command("remove <icons...>")
+	.commands([
+		"remove <icons...>",
+		"r <icons...>",
+		"rm <icons...>",
+		"d <icons...>",
+		"del <icons...>",
+		"delete <icons...>",
+	])
 	.description("Remove icons from your project")
 	.action(remove);
 
 program
-	.command("update")
+	.commands(["update", "u", "up", "upgrade", "refresh"])
 	.description(
 		"Update all icons in your project based on latest configuration"
 	)
 	.action(update);
 
 program
-	.command("config")
+	.commands(["config", "c"])
 	.description("Show the current configuration for your project")
 	.action(() => {
 		console.log("This feature is not implemented yet");
 	});
 
 program
-	.command("test")
+	.commands(["test"])
 	.description("Test connection with the server")
 	.action(test);
-
-program.command("ls").description("Alias for list").action(list);
-
-program.command("install <icons...>").description("Alias for add").action(add);
-
-program
-	.command("uninstall <icons...>")
-	.description("Alias for remove")
-	.action(remove);
-
-program
-	.command("delete <icons...>")
-	.description("Alias for remove")
-	.action(remove);
-
-program.command("refresh").description("Alias for update").action(update);
-
-program.command("upgrade").description("Alias for update").action(update);
 
 program.parse(process.argv);

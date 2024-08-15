@@ -3,13 +3,18 @@ import path from "path";
 
 import ora from "ora";
 
-import { cli_version, def_config_file } from "../config.js";
+import {
+	cli_name,
+	cli_aliases,
+	cli_version,
+	def_config_file,
+} from "../config.js";
 
 import { askForConfigs } from "../lib/utils.js";
 import typeDefinitions from "../lib/types.js";
 
 export default async function init() {
-	const log = ora().info("Welcome to Lucide CLI");
+	const log = ora().info("Welcome to " + cli_name + " " + cli_version);
 
 	const { framework, language, dir } = await askForConfigs();
 
@@ -29,6 +34,8 @@ export default async function init() {
 	log.start("Creating configuration file...");
 
 	const data = {
+		name: cli_name,
+		aliases: cli_aliases,
 		version: cli_version,
 		framework,
 		typescript: language === "typescript",
@@ -72,6 +79,6 @@ export default async function init() {
 		}
 	}
 
-	log.succeed("Lucide CLI has been successfully initialized");
+	log.succeed(cli_name + " has been successfully initialized");
 	console.log();
 }

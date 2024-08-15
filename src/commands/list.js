@@ -14,8 +14,6 @@ export default async function list(icon) {
 	try {
 		const iconsDir = path.join(process.cwd(), config.dir);
 
-		console.log(iconsDir);
-
 		const files = fs.readdirSync(iconsDir);
 
 		const icons = files.filter((file) => !file.startsWith("index"));
@@ -37,7 +35,7 @@ export default async function list(icon) {
 		log.succeed(
 			`Found ${icons.length} icon${
 				icons.length > 1 ? "s" : ""
-			} in your project:`
+			} in your project`
 		);
 	} catch (err) {
 		log.fail("Looking for icons...").fail("");

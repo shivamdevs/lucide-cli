@@ -18,8 +18,6 @@ export default async function update() {
 	try {
 		const iconsDir = path.join(process.cwd(), config.dir);
 
-		console.log(iconsDir);
-
 		const files = fs.readdirSync(iconsDir);
 
 		icons = files.filter((file) => !file.startsWith("index"));

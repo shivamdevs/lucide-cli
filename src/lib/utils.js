@@ -5,6 +5,8 @@ import ora from "ora";
 import inquirer from "inquirer";
 
 import {
+	cli_aliases,
+	cli_name,
 	cli_version,
 	def_config_file,
 	def_dir,
@@ -22,7 +24,7 @@ export function getConfig() {
 	} catch (error) {
 		ora()
 			.fail(
-				"You haven't initialized Lucide CLI for this project yet. Run:"
+				`You haven't initialized ${cli_name} for this project yet. Run:`
 			)
 			.fail("npx lucide-cli@latest init")
 			.fail("to initialize the CLI configuration");
@@ -51,14 +53,6 @@ export function getConfig() {
 		if (typeof data.typescript !== "boolean") {
 			throw new Error("Invalid language");
 		}
-
-		return {
-			isConfigured: true,
-			version: data.version,
-			framework: data.framework,
-			typescript: data.typescript,
-			dir: data.dir,
-		};
 	} catch (error) {
 		ora()
 			.fail(error.message)
@@ -68,10 +62,33 @@ export function getConfig() {
 		console.log();
 		return getInitialConfigJSON();
 	}
+
+	const configs = {
+		name: cli_name,
+		aliases: cli_aliases,
+		version: cli_version,
+		isConfigured: true,
+		framework: data.framework,
+		typescript: data.typescript,
+		dir: data.dir,
+	};
+
+	try {
+		const savePath = path.join(process.cwd(), def_config_file);
+
+		fs.writeFileSync(savePath, JSON.stringify(configs, null, 2));
+	} catch (error) {
+		log.fail("Failed to update the configuration file");
+		return getInitialConfigJSON();
+	}
+
+	return configs;
 }
 
 export function getInitialConfigJSON() {
 	return {
+		name: cli_name,
+		aliases: cli_aliases,
 		version: cli_version,
 		framework: supported_frameworks[0],
 		typescript: supported_languages[0] === "typescript",
