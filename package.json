@@ -1,6 +1,6 @@
 {
 	"name": "lucide-cli",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A CLI tool to fetch Lucide icons from GitHub raw files and save it directly to your working directory.",
 	"main": "./src/index.js",
 	"type": "module",
