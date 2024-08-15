@@ -1,4 +1,4 @@
-export const cli_version = "0.0.5";
+export const cli_version = "0.0.6";
 export const cli_name = "Lucide CLI";
 export const cli_aliases = "lucide-cli, lucli";
 
