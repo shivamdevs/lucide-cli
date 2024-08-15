@@ -8,7 +8,7 @@ import { generateFileName } from "../lib/maker.js";
 
 export default async function remove(icons) {
 	const config = getConfig();
-	if (!config.isConfigured) return;
+	if (!config) return;
 
 	const log = ora();
 
@@ -26,7 +26,7 @@ export default async function remove(icons) {
 
 		const savePath = path.join(
 			process.cwd(),
-			config.dir,
+			config.iconsDirectory,
 			generateFileName(icon, config)
 		);
 

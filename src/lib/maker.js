@@ -14,32 +14,60 @@ export function generateFileName(name, config) {
 	return `${name}.${extension}`;
 }
 
+function getRandomData() {
+	const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
+
+	const randomColor = colors[Math.floor(Math.random() * colors.length)];
+	// Random size between 12 and 100
+	const randomSize = Math.floor(Math.random() * (100 - 12 + 1) + 12);
+
+	return { color: randomColor, size: randomSize };
+}
+
 function generateComponent(name, type, content, config) {
 	content = content
-		.replace(/width="24"/g, 'width={size || "24"}')
-		.replace(/height="24"/g, 'height={size || "24"}')
-		.replace(/stroke="currentColor"/g, 'stroke={color || "currentColor"}')
+		.replace(/width="24"/g, `width={size ?? ${config.defaultSize}}`)
+		.replace(/height="24"/g, `height={size ?? ${config.defaultSize}}`)
+		.replace(/stroke="currentColor"/g, 'stroke={color ?? "currentColor"}')
 		.replace(
 			/stroke-width="2"/g,
-			"strokeWidth={absoluteStrokeWidth ? 2 : (Number(size) ?? 24) / 12}"
+			`strokeWidth={${config.defaultStrokeWidth}}`
 		)
 		.replace(/stroke-linecap="round"/g, 'strokeLinecap="round"')
 		.replace(/stroke-linejoin="round"/g, 'strokeLinejoin="round"')
 		.replace(
 			/>/,
-			` {...props} className={\`lucide lucide-\$\{${type}\} \$\{className\}\`} ref={ref}>`
+			` {...props} className={\`lucide lucide-{${type} \$\{className\}\`} ref={ref}>`
 		)
 		.replace(/\n/g, " ")
 		.replace(/\s+/g, " ")
 		.replace(/> </g, "><")
 		.replace(/<\/svg> /g, "</svg>");
 
+	const randomData = getRandomData();
+
 	return `import React from 'react';
 ${config.typescript ? "import { LucideElement, LucideProps } from './';" : ""}
 
+/**
+ * ${name} - \`${type}\`
+ *
+ * @param {string} color - stroke color of the icon
+ * @param {number} size - size of the icon
+ * @param {number} strokeWidth - width of the stroke
+ * @param {string} className - additional classes for the icon
+ * @param {object} props - additional props for the icon based on SVGElement
+ * @param {object} ref - reference to the icon
+ * @returns {React.Component} ${name} component
+ *
+ * @example
+ * <${name} color="${randomData.color}" size={${randomData.size}} />
+ *
+ * @see https://lucide.dev/icons/${type}
+ */
 const ${name}${config.typescript ? ": LucideElement" : ""} = React.forwardRef${
 		config.typescript ? "<SVGSVGElement, LucideProps>" : ""
-	}(({ absoluteStrokeWidth, className, color, size, ...props }, ref) => (
+	}(({ className, color, size, ...props }, ref) => (
     ${content}
 ));
 

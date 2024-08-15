@@ -10,8 +10,9 @@ import {
 	cli_version,
 	def_config_file,
 	def_dir,
+	def_size,
+	def_stroke_width,
 	supported_frameworks,
-	supported_languages,
 } from "../config.js";
 
 export function getConfig() {
@@ -26,10 +27,10 @@ export function getConfig() {
 			.fail(
 				`You haven't initialized ${cli_name} for this project yet. Run:`
 			)
-			.fail("npx lucide-cli@latest init")
+			.fail("npx lucide-cli init")
 			.fail("to initialize the CLI configuration");
 		console.log();
-		return getInitialConfigJSON();
+		return null;
 	}
 
 	try {
@@ -39,7 +40,7 @@ export function getConfig() {
 			.fail("Failed to parse the configuration file")
 			.fail("Please make sure the configuration file is in JSON format");
 		console.log();
-		return getInitialConfigJSON();
+		return null;
 	}
 
 	try {
@@ -51,7 +52,7 @@ export function getConfig() {
 		}
 
 		if (typeof data.typescript !== "boolean") {
-			throw new Error("Invalid language");
+			throw new Error("Invalid typescript value");
 		}
 	} catch (error) {
 		ora()
@@ -60,17 +61,29 @@ export function getConfig() {
 			.fail("Failed to read the configuration file")
 			.fail("Please make sure the configuration file is correct");
 		console.log();
-		return getInitialConfigJSON();
+		return null;
+	}
+
+	if (!data.defaultSize || Number.isNaN(parseFloat(data.defaultSize))) {
+		data.defaultSize = def_size;
+	}
+
+	if (
+		!data.defaultStrokeWidth ||
+		Number.isNaN(parseFloat(data.defaultStrokeWidth))
+	) {
+		data.defaultStrokeWidth = def_stroke_width;
 	}
 
 	const configs = {
 		name: cli_name,
 		aliases: cli_aliases,
 		version: cli_version,
-		isConfigured: true,
 		framework: data.framework,
 		typescript: data.typescript,
-		dir: data.dir,
+		iconsDirectory: data.iconsDirectory,
+		defaultSize: data.defaultSize,
+		defaultStrokeWidth: data.defaultStrokeWidth,
 	};
 
 	try {
@@ -79,21 +92,10 @@ export function getConfig() {
 		fs.writeFileSync(savePath, JSON.stringify(configs, null, 2));
 	} catch (error) {
 		log.fail("Failed to update the configuration file");
-		return getInitialConfigJSON();
+		return null;
 	}
 
 	return configs;
-}
-
-export function getInitialConfigJSON() {
-	return {
-		name: cli_name,
-		aliases: cli_aliases,
-		version: cli_version,
-		framework: supported_frameworks[0],
-		typescript: supported_languages[0] === "typescript",
-		dir: "src/components/lucide",
-	};
 }
 
 export function askForConfigs() {
@@ -106,15 +108,27 @@ export function askForConfigs() {
 		},
 		{
 			type: "list",
-			name: "language",
-			message: "Select the language you are using:",
-			choices: supported_languages,
+			name: "isTypeScript",
+			message: "Are you using TypeScript?",
+			choices: ["Yes", "No"],
 		},
 		{
 			type: "input",
-			name: "dir",
-			message: "Enter the directory where the icons will be saved:",
+			name: "iconsDirectory",
+			message: "Where do you want to save the icons?",
 			default: def_dir,
+		},
+		{
+			type: "input",
+			name: "size",
+			message: "What should be icons default size?",
+			default: def_size,
+		},
+		{
+			type: "input",
+			name: "strokeWidth",
+			message: "What should be icons default stroke-width?",
+			default: def_stroke_width,
 		},
 	]);
 }

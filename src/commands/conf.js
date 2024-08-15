@@ -1,18 +1,20 @@
-import { cli_version } from "../config";
-import { getConfig } from "../lib/utils";
+import ora from "ora";
+
+import { getConfig } from "../lib/utils.js";
 
 export default async function conf() {
 	const config = getConfig();
-	if (!config.isConfigured) return;
+	if (!config) return;
 
 	const log = ora();
 
-	log.info(config.name + " " + config.version)
+	log.info(config.name + " - " + config.version)
 		.info("")
 		.info("Current configuration:")
+		.info()
 		.info("Framework: " + config.framework)
 		.info("TypeScript enabled: " + config.typescript)
-		.info("Icons directory: " + config.dir)
+		.info("Icons directory: " + config.iconsDirectory)
 		.stop();
 
 	console.log();

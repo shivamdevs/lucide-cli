@@ -7,12 +7,12 @@ import { getConfig } from "../lib/utils.js";
 
 export default async function list(icon) {
 	const config = getConfig();
-	if (!config.isConfigured) return;
+	if (!config) return;
 
 	const log = ora().start("Looking for icons...");
 
 	try {
-		const iconsDir = path.join(process.cwd(), config.dir);
+		const iconsDir = path.join(process.cwd(), config.iconsDirectory);
 
 		const files = fs.readdirSync(iconsDir);
 

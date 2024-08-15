@@ -10,7 +10,7 @@ import { getConfig } from "../lib/utils.js";
 
 export default async function add(icons) {
 	const config = getConfig();
-	if (!config.isConfigured) return;
+	if (!config) return;
 
 	const log = ora();
 
@@ -46,7 +46,11 @@ export default async function add(icons) {
 
 		const { content, filename } = iconMaker(icon, iconData, config);
 
-		const savePath = path.join(process.cwd(), config.dir, filename);
+		const savePath = path.join(
+			process.cwd(),
+			config.iconsDirectory,
+			filename
+		);
 
 		try {
 			fs.writeFileSync(savePath, content);

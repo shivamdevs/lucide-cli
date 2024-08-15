@@ -9,6 +9,7 @@ import add from "./commands/add.js";
 import list from "./commands/list.js";
 import remove from "./commands/remove.js";
 import update from "./commands/update.js";
+import conf from "./commands/conf.js";
 
 program
 	.version(cli_version, "-v, --version", "Output the current version")
@@ -64,9 +65,7 @@ program
 	.command("config")
 	.alias("c")
 	.description("Show the current configuration for your project")
-	.action(() => {
-		console.log("This feature is not implemented yet");
-	});
+	.action(conf);
 
 program
 	.command("test")

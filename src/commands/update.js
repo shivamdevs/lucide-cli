@@ -9,14 +9,14 @@ import iconMaker from "../lib/maker.js";
 
 export default async function update() {
 	const config = getConfig();
-	if (!config.isConfigured) return;
+	if (!config) return;
 
 	const log = ora().start("Looking for icons...");
 
 	let icons = [];
 
 	try {
-		const iconsDir = path.join(process.cwd(), config.dir);
+		const iconsDir = path.join(process.cwd(), config.iconsDirectory);
 
 		const files = fs.readdirSync(iconsDir);
 
@@ -34,7 +34,7 @@ export default async function update() {
 	log.succeed(
 		`Found ${icons.length} icon${
 			icons.length > 1 ? "s" : ""
-		} in your project:`
+		} in your project`
 	).stop();
 
 	console.log();
@@ -69,7 +69,11 @@ export default async function update() {
 
 		const { content, filename } = iconMaker(icon, iconData, config);
 
-		const savePath = path.join(process.cwd(), config.dir, filename);
+		const savePath = path.join(
+			process.cwd(),
+			config.iconsDirectory,
+			filename
+		);
 
 		try {
 			fs.writeFileSync(savePath, content);

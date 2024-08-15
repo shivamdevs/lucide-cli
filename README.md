@@ -15,7 +15,7 @@ A CLI tool to fetch Lucide icons from GitHub raw files and save it directly to y
 
 ## Information
 
-This CLI tool currently supports `react` framework only.
+This CLI tool currently supports `React` framework only.
 \
 New features and frameworks will be added in due time.
 \
@@ -26,47 +26,56 @@ Support for both `TypeScript` and `JavaScript` is available.
 1. Initial the tool to your project by running the following command:
 
     ```bash
-    npx lucide-cli@latest init
+    npx lucide-cli init
     ```
 
-    This will also install the loot automatically, if not already installed.
+    This will also install the tool automatically, if not installed previously.
 
 2. You will be asked to select the framework you are using.
 
     ```bash
-    ℹ Welcome to Lucide CLI
+    ℹ Welcome to Lucide CLI - <0.0.0> #current version
     ? Select the framework you are using: (Use arrow keys)
-    ❯ react
+    ❯ React
     ```
 
-    Currently, only `react` is supported.
+    Currently, only `React` is supported.
 
-3. After selecting the framework, you will be asked to select the language you are using.
+3. Next, you will be asked whether you are using `TypeScript` or not.
 
     ```bash
-    ? Select the language you are using: (Use arrow keys)
-    ❯ javascript
-      typescript
+    ? Are you using TypeScript? (Use arrow keys)
+    ❯ Yes
+      No
     ```
 
-4. After selecting the language, you will be asked to provide the directory where you want to save the icons.
+4. After this, you will be asked to provide the directory where you want to save the icons.
 
     ```bash
-    ? Enter the directory where the icons will be saved:
-    (src/components/lucide)
+    ? Where do you want to save the icons? (src/components/lucide)
     ```
 
     The default directory is `src/components/lucide`.
 
-5. After providing the directory, the tool will initialize the configuration and save it to the `lucide.config.json` file.
+5. Next, you will be asked to provide the default size and stroke width for the icons.
+
+    ```bash
+    ? Default size for the icons: (24)
+    ? Default stroke width for the icons: (2)
+    ```
+
+    The default size is `24` and the default stroke width is `2`.
+
+6. After providing the directory, the tool will initialize the configuration and save it to the `lucide.config.json` file.
 
     ```bash
     ✔ Configuration file created successfully
     ✔ Icon directory created successfully
+    ✔ TypeScript definitions file created successfully
     ✔ Lucide CLI has been successfully initialized
     ```
 
-6. That's it.
+7. That's it.
 
     Now you can start adding the icons to your project.
 
@@ -140,9 +149,9 @@ npx lucide-cli add <icon-names...>
 
 ## TypeScript Definitions
 
-If you selected TypeScript as the language, the tool will automatically create a TypeScript definitions file for you in the directory you provided with the name `index.ts`.
+If you selected TypeScript, the tool will automatically create a TypeScript definitions file for you in the directory you provided with the name `index.ts`.
 \
-All the icons added with TypeScript language will use type definitions from this file.
+All the icons added with TypeScript will use type definitions from this file.
 
 ## Configuration
 
@@ -158,9 +167,11 @@ npx lucide-cli init
 
 ```json
 {
-	"framework": "react",
+	"framework": "React",
 	"typescript": false,
-	"dir": "src/components/lucide"
+	"iconsDirectory": "src/components/lucide",
+	"defaultSize": 24,
+	"defaultStrokeWidth": 2
 }
 ```
 

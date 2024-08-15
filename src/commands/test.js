@@ -6,7 +6,7 @@ import { getConfig } from "../lib/utils.js";
 
 export default async function test() {
 	const config = getConfig();
-	if (!config.isConfigured) return;
+	if (!config) return;
 
 	const log = ora()
 		.info("Initializing test command")

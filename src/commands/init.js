@@ -8,26 +8,37 @@ import {
 	cli_aliases,
 	cli_version,
 	def_config_file,
+	def_size,
+	def_stroke_width,
 } from "../config.js";
 
 import { askForConfigs } from "../lib/utils.js";
 import typeDefinitions from "../lib/types.js";
 
 export default async function init() {
-	const log = ora().info("Welcome to " + cli_name + " " + cli_version);
+	const log = ora().info("Welcome to " + cli_name + " - " + cli_version);
 
-	const { framework, language, dir } = await askForConfigs();
+	const { framework, isTypeScript, iconsDirectory, size, strokeWidth } =
+		await askForConfigs();
 
-	if (!dir) {
+	if (!iconsDirectory) {
 		log.fail("Invalid directory path");
 		return;
 	}
 
 	const regex = /^[a-zA-Z0-9-_]+(\/[a-zA-Z0-9-_]+)*$/;
-	if (!regex.test(dir)) {
+	if (!regex.test(iconsDirectory)) {
 		log.fail("Invalid directory path format");
 		return;
 	}
+
+	const defaultSize =
+		!size || Number.isNaN(parseFloat(size)) ? def_size : parseFloat(size);
+
+	const defaultStrokeWidth =
+		!strokeWidth || Number.isNaN(parseFloat(strokeWidth))
+			? def_stroke_width
+			: parseFloat(strokeWidth);
 
 	console.log();
 
@@ -38,8 +49,10 @@ export default async function init() {
 		aliases: cli_aliases,
 		version: cli_version,
 		framework,
-		typescript: language === "typescript",
-		dir,
+		typescript: isTypeScript === "Yes",
+		iconsDirectory,
+		defaultSize,
+		defaultStrokeWidth,
 	};
 
 	try {
@@ -55,7 +68,7 @@ export default async function init() {
 
 	log.start("Creating icon directory...");
 
-	const iconDir = path.join(process.cwd(), dir);
+	const iconDir = path.join(process.cwd(), iconsDirectory);
 
 	try {
 		fs.mkdirSync(iconDir, { recursive: true });
@@ -65,7 +78,7 @@ export default async function init() {
 		return;
 	}
 
-	if (language === "typescript") {
+	if (isTypeScript === "Yes") {
 		log.start("Creating TypeScript definitions file...");
 
 		const typesPath = path.join(iconDir, "index.ts");
