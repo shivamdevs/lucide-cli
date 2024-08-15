@@ -4,7 +4,7 @@ export default function iconMaker(name, data, config) {
 	const formattedName = formatIconName(name);
 	const filename = generateFileName(name, config);
 
-	let content = generateComponent(formattedName, data, config);
+	let content = generateComponent(formattedName, name, data, config);
 
 	return { content, filename };
 }
@@ -14,7 +14,7 @@ export function generateFileName(name, config) {
 	return `${name}.${extension}`;
 }
 
-function generateComponent(name, content, config) {
+function generateComponent(name, type, content, config) {
 	content = content
 		.replace(/width="24"/g, 'width={size || "24"}')
 		.replace(/height="24"/g, 'height={size || "24"}')
@@ -25,7 +25,10 @@ function generateComponent(name, content, config) {
 		)
 		.replace(/stroke-linecap="round"/g, 'strokeLinecap="round"')
 		.replace(/stroke-linejoin="round"/g, 'strokeLinejoin="round"')
-		.replace(/>/, " {...props} ref={ref}>")
+		.replace(
+			/>/,
+			` {...props} className={\`lucide lucide-\$\{${type}\} \$\{className\}\`} ref={ref}>`
+		)
 		.replace(/\n/g, " ")
 		.replace(/\s+/g, " ")
 		.replace(/> </g, "><")
@@ -36,7 +39,7 @@ ${config.typescript ? "import { LucideElement, LucideProps } from './';" : ""}
 
 const ${name}${config.typescript ? ": LucideElement" : ""} = React.forwardRef${
 		config.typescript ? "<SVGSVGElement, LucideProps>" : ""
-	}(({ absoluteStrokeWidth, color, size, ...props }, ref) => (
+	}(({ absoluteStrokeWidth, className, color, size, ...props }, ref) => (
     ${content}
 ));
 

@@ -24,6 +24,8 @@ export default async function list(icon) {
 			return;
 		}
 
+		log.succeed("Looking for icons...").stop();
+
 		console.log();
 
 		icons.forEach((icon) => {
