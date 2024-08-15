@@ -11,7 +11,7 @@ import remove from "./commands/remove.js";
 import update from "./commands/update.js";
 
 program
-	.version(cli_version)
+	.version(cli_version, "-v, --version", "Output the current version")
 	.description(
 		"A CLI tool to fetch Lucide icons from GitHub raw files and save it directly to your working directory."
 	);
@@ -22,48 +22,54 @@ program
 	.action(init);
 
 program
-	.commands(["list", "l", "ls"])
+	.command("list")
+	.alias("ls")
+	.alias("l")
 	.description("List all icons added to your project")
 	.action(list);
 
 program
-	.commands([
-		"add <icons...>",
-		"a <icons...>",
-		"i <icons...>",
-		"install <icons...>",
-	])
+	.command("add")
+	.alias("a")
+	.alias("i")
+	.alias("install")
+	.argument("<icons...>", "icons names to add to your project")
 	.description("Add icons to your project")
 	.action(add);
 
 program
-	.commands([
-		"remove <icons...>",
-		"r <icons...>",
-		"rm <icons...>",
-		"d <icons...>",
-		"del <icons...>",
-		"delete <icons...>",
-	])
+	.command("remove")
+	.alias("r")
+	.alias("rm")
+	.alias("d")
+	.alias("del")
+	.alias("delete")
+	.alias("uninstall")
+	.argument("<icons...>", "icons names to remove from your project")
 	.description("Remove icons from your project")
 	.action(remove);
 
 program
-	.commands(["update", "u", "up", "upgrade", "refresh"])
+	.command("update")
+	.alias("u")
+	.alias("up")
+	.alias("upgrade")
+	.alias("refresh")
 	.description(
 		"Update all icons in your project based on latest configuration"
 	)
 	.action(update);
 
 program
-	.commands(["config", "c"])
+	.command("config")
+	.alias("c")
 	.description("Show the current configuration for your project")
 	.action(() => {
 		console.log("This feature is not implemented yet");
 	});
 
 program
-	.commands(["test"])
+	.command("test")
 	.description("Test connection with the server")
 	.action(test);
 

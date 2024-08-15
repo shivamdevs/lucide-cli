@@ -1,10 +1,17 @@
 # lucide-cli
 
+[![npm version](https://img.shields.io/npm/v/lucide-cli?color=blue)](https://www.npmjs.com/shivamdevs/lucide-cli)
+[![npm downloads](https://img.shields.io/npm/dt/lucide-cli?color=blue)](https://npmcharts.com/compare/lucide-cli?minimal=true)
+[![Install Size](https://packagephobia.now.sh/badge?p=lucide-cli)](https://packagephobia.now.sh/result?p=lucide-cli)
+[![GitHub](https://img.shields.io/github/license/shivamdevs/lucide-cli?color=blue)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/shivamdevs/lucide-cli?color=blue)](https://github.com/shivamdevs/lucide-cli/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/shivamdevs/lucide-cli?color=blue)](https://github.com/shivamdevs/lucide-cli/pulls)
+
 A CLI tool to fetch Lucide icons from GitHub raw files and save it directly to your working directory.
 
 > This CLI tool is inspired by and based on [Lucide](https://github.com/lucide-icons/lucide) icons.
 > \
-> It uses the raw files from the `/lucide-icons/lucide/blob/HEAD/icons` folder to fetch the icons.
+> It uses the raw files from the [`lucide/icons`](https://github.com/lucide-icons/lucide/blob/HEAD/icons) folder to fetch the icons.
 
 ## Information
 
