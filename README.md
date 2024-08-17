@@ -149,7 +149,7 @@ npx lucide-cli add <icon-names...>
 
 ## TypeScript Definitions
 
-If you selected TypeScript, the tool will automatically create a TypeScript definitions file for you in the directory you provided with the name `index.ts`.
+If you selected TypeScript, the tool will automatically create a TypeScript definitions file for you in the directory you provided with the name `.lucide.d.ts`.
 \
 All the icons added with TypeScript will use type definitions from this file.
 

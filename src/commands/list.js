@@ -4,6 +4,7 @@ import path from "path";
 import ora from "ora";
 
 import { getConfig } from "../lib/utils.js";
+import { def_typescript_file } from "../config.js";
 
 export default async function list(icon) {
 	const config = getConfig();
@@ -16,7 +17,9 @@ export default async function list(icon) {
 
 		const files = fs.readdirSync(iconsDir);
 
-		const icons = files.filter((file) => !file.startsWith("index"));
+		const icons = files.filter(
+			(file) => !file.startsWith(def_typescript_file)
+		);
 
 		if (icons.length === 0) {
 			log.warn("No icons found in your project");

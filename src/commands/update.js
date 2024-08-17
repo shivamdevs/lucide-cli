@@ -3,7 +3,7 @@ import path from "path";
 
 import ora from "ora";
 
-import { raw_api } from "../config.js";
+import { def_typescript_file, raw_api } from "../config.js";
 import { getConfig } from "../lib/utils.js";
 import iconMaker from "../lib/maker.js";
 
@@ -20,7 +20,7 @@ export default async function update() {
 
 		const files = fs.readdirSync(iconsDir);
 
-		icons = files.filter((file) => !file.startsWith("index"));
+		icons = files.filter((file) => !file.startsWith(def_typescript_file));
 
 		if (icons.length === 0) {
 			log.warn("No icons found in your project");
