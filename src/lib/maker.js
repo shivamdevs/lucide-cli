@@ -1,3 +1,4 @@
+import { def_typescript_file } from "../config.js";
 import { formatIconName } from "./utils.js";
 
 export default function iconMaker(name, data, config) {
@@ -47,7 +48,14 @@ function generateComponent(name, type, content, config) {
 	const randomData = getRandomData();
 
 	return `import React from 'react';
-${config.typescript ? "import { LucideElement, LucideProps } from './';" : ""}
+${
+	config.typescript
+		? `import { LucideElement, LucideProps } from './${def_typescript_file.replace(
+				".d.ts",
+				""
+		  )}';`
+		: ""
+}
 
 /**
  * ${name} - \`${type}\`

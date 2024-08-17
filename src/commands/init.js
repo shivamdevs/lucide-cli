@@ -10,6 +10,7 @@ import {
 	def_config_file,
 	def_size,
 	def_stroke_width,
+	def_typescript_file,
 } from "../config.js";
 
 import { askForConfigs } from "../lib/utils.js";
@@ -81,7 +82,7 @@ export default async function init() {
 	if (isTypeScript === "Yes") {
 		log.start("Creating TypeScript definitions file...");
 
-		const typesPath = path.join(iconDir, "index.ts");
+		const typesPath = path.join(iconDir, def_typescript_file);
 
 		try {
 			fs.writeFileSync(typesPath, typeDefinitions[framework]);
