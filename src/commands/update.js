@@ -28,7 +28,9 @@ export default async function update() {
 			return;
 		}
 	} catch (err) {
-		log.fail("Looking for icons...").fail("");
+		log.fail("Looking for icons...").fail(
+			"Failed to read the icons directory"
+		);
 	}
 
 	log.succeed(
