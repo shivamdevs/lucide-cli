@@ -38,7 +38,7 @@ function generateComponent(name, type, content, config) {
 		.replace(/stroke-linejoin="round"/g, 'strokeLinejoin="round"')
 		.replace(
 			/>/,
-			` {...props} className={\`lucide lucide-${type} \$\{className ? className : ""\}\`} ref={ref}>`
+			` {...props} className={\`lucide lucide-${type}\$\{className ? \` \$\{className\}\` : ""\}\`} ref={ref}>`
 		)
 		.replace(/\n/g, " ")
 		.replace(/\s+/g, " ")
@@ -78,6 +78,8 @@ const ${name}${config.typescript ? ": LucideElement" : ""} = React.forwardRef${
 	}(({ className, color, size, ...props }, ref) => (
     ${content}
 ));
+
+${name}.displayName = "${name}";
 
 export default ${name};
 `;
