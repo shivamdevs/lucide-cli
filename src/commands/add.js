@@ -7,6 +7,7 @@ import { raw_api } from "../config.js";
 
 import iconMaker from "../lib/maker.js";
 import { getConfig } from "../lib/utils.js";
+import index from "./index.js";
 
 export default async function add(icons) {
 	const config = getConfig();
@@ -64,6 +65,8 @@ export default async function add(icons) {
 
 		iconsAdded++;
 	}
+
+	index(false);
 
 	console.log();
 

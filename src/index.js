@@ -6,6 +6,7 @@ import { cli_version } from "./config.js";
 import test from "./commands/test.js";
 import init from "./commands/init.js";
 import add from "./commands/add.js";
+import index from "./commands/index.js";
 import list from "./commands/list.js";
 import remove from "./commands/remove.js";
 import update from "./commands/update.js";
@@ -37,6 +38,12 @@ program
 	.argument("<icons...>", "icons names to add to your project")
 	.description("Add icons to your project")
 	.action(add);
+
+program
+	.command("index")
+	.alias("idx")
+	.description("Generate index file for all icons in your project")
+	.action(index);
 
 program
 	.command("remove")

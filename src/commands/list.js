@@ -5,8 +5,9 @@ import ora from "ora";
 
 import { getConfig } from "../lib/utils.js";
 import { def_typescript_file } from "../config.js";
+import index from "./index.js";
 
-export default async function list(icon) {
+export default async function list() {
 	const config = getConfig();
 	if (!config) return;
 
@@ -18,7 +19,9 @@ export default async function list(icon) {
 		const files = fs.readdirSync(iconsDir);
 
 		const icons = files.filter(
-			(file) => !file.startsWith(def_typescript_file)
+			(file) =>
+				!file.startsWith(def_typescript_file) &&
+				!file.startsWith("index")
 		);
 
 		if (icons.length === 0) {
@@ -34,6 +37,8 @@ export default async function list(icon) {
 		icons.forEach((icon) => {
 			log.info(`- ${icon.split(".")[0]}`);
 		});
+
+		index(false);
 
 		console.log();
 

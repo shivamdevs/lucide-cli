@@ -5,6 +5,7 @@ import ora from "ora";
 
 import { getConfig } from "../lib/utils.js";
 import { generateFileName } from "../lib/maker.js";
+import index from "./index.js";
 
 export default async function remove(icons) {
 	const config = getConfig();
@@ -48,6 +49,8 @@ export default async function remove(icons) {
 
 		iconsRemoved++;
 	}
+
+	index(false);
 
 	console.log();
 
